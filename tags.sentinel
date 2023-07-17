@@ -1,0 +1,13 @@
+
+import "tfrun"
+
+is_dev = rule {
+  // Check that workspace contains some tags, if not the rule should fail. You could move this into a rule expression, however, that is not ideal if you mandate that a set of tags is configured on all workspaces
+	tfrun.workspace.tags is not empty and
+	// If the emptyness check passes, check that the workspace tags list contains "dev"
+  tfrun.workspace.tags contains "dev"
+} 
+
+main = rule {
+	is_dev
+}
